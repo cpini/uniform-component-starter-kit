@@ -1,0 +1,20 @@
+# https://medium.com/@elifront/best-next-js-docker-compose-hot-reload-production-ready-docker-setup-28a9125ba1dc
+services: 
+  frontend:
+    container_name: frontend
+    build:
+      context: . #if your Dockerfile is not at the same level change the path here (./frontend)
+      target: dev
+    restart: always
+    command: npm run dev
+    environment:
+      NODE_ENV: development
+      UNIFORM_API_KEY: ${UNIFORM_API_KEY}
+      UNIFORM_PROJECT_ID: ${UNIFORM_PROJECT_ID}
+      UNIFORM_PREVIEW_SECRET: ${UNIFORM_PREVIEW_SECRET}
+    volumes:
+      - ./:/app
+      - /app/node_modules
+      - /app/.next
+    ports:
+      - 3001:3000
